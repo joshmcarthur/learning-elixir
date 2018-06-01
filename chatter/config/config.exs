@@ -17,6 +17,18 @@ config :chatter, Chatter.Endpoint,
   pubsub: [name: Chatter.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+
+# Configure Guardian
+config :guardian, Guardian,
+  allowed_algos: ["HS512"], # optional
+  verify_module: Guardian.JWT,  # optional
+  issuer: "Chatter",
+  ttl: { 30, :days },
+  allowed_drift: 2000,
+  verify_issuer: true, # optional
+  secret_key: "nWngTQwu5zcyDI9jEFzRid7mmZQq1tjKAdRikGir0q072Ea76ewVzh2rYzjd61/O",
+  serializer: Chatter.GuardianSerializer
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
