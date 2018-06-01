@@ -9,12 +9,12 @@ defmodule Chatter.UserController do
   end
 
   def new(conn, _params) do
-    changeset = User.changeset(%User{})
+    changeset = User.reg_changeset(%User{})
     render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"user" => user_params}) do
-    changeset = User.changeset(%User{}, user_params)
+    changeset = User.reg_changeset(%User{}, user_params)
 
     case Repo.insert(changeset) do
       {:ok, _user} ->
@@ -33,13 +33,13 @@ defmodule Chatter.UserController do
 
   def edit(conn, %{"id" => id}) do
     user = Repo.get!(User, id)
-    changeset = User.changeset(user)
+    changeset = User.reg_changeset(user)
     render(conn, "edit.html", user: user, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Repo.get!(User, id)
-    changeset = User.changeset(user, user_params)
+    changeset = User.reg_changeset(user, user_params)
 
     case Repo.update(changeset) do
       {:ok, user} ->
